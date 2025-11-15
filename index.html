@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Awesome App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-700">
+        🌟 MyDemoApp
+      </h1>
+      <nav class="flex gap-6 items-center">
+        <a href="#about" class="text-gray-600 hover:text-indigo-600 transition">About</a>
+        <a href="#features" class="text-gray-600 hover:text-indigo-600 transition">Features</a>
+        <a href="profile.html" id="profile-link" class="text-gray-600 hover:text-indigo-600 transition hidden">Profile</a>
+        <button
+          id="login-btn"
+          onclick="window.location.href='login.html';"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition"
+        >
+          Login
+        </button>
+        <button
+          id="logout-btn"
+          onclick="logoutUser()"
+          class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition hidden"
+        >
+          Logout
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center py-20 px-6">
+    <h2 class="text-4xl md:text-5xl font-bold text-indigo-700 mb-6">
+      Welcome to My Awesome App 🚀
+    </h2>
+    <p class="text-gray-600 max-w-2xl mx-auto text-lg mb-8">
+      Your personal space to learn, grow, and manage everything in one place.
+      Seamlessly explore features, track progress, and stay connected — all in one app.
+    </p>
+    <button
+      onclick="window.location.href='profile.html';"
+      class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg"
+    >
+      Go to Profile
+    </button>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 bg-white border-t border-indigo-100 text-center px-6">
+    <h3 class="text-3xl font-bold text-indigo-700 mb-4">About This App</h3>
+    <p class="max-w-2xl mx-auto text-gray-600 mb-8">
+      This project is built to help users explore authentication systems, navigation, and responsive design using 
+      modern web technologies like <span class="text-indigo-600 font-semibold">Tailwind CSS</span>, 
+      <span class="text-indigo-600 font-semibold">JavaScript</span>, and 
+      <span class="text-indigo-600 font-semibold">OAuth</span>.
+    </p>
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/4149/4149677.png"
+      alt="About App"
+      class="w-40 mx-auto"
+    />
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 text-center px-6">
+    <h3 class="text-3xl font-bold text-indigo-700 mb-8">Features</h3>
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="p-6 bg-white rounded-xl shadow-md border border-indigo-100 hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="w-12 mx-auto mb-4" alt="Fast" />
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">Fast and Reliable</h4>
+        <p class="text-gray-600 text-sm">
+          Enjoy smooth navigation and quick responses — built with performance in mind.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-md border border-indigo-100 hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/9131/9131546.png" class="w-12 mx-auto mb-4" alt="Secure" />
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">Secure Authentication</h4>
+        <p class="text-gray-600 text-sm">
+          Login using Google or email securely with encrypted sessions.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-md border border-indigo-100 hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/3588/3588658.png" class="w-12 mx-auto mb-4" alt="Customizable" />
+        <h4 class="text-lg font-semibold text-indigo-700 mb-2">Customizable UI</h4>
+        <p class="text-gray-600 text-sm">
+          Modify themes and layouts easily using Tailwind utility classes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 border-t border-indigo-100 text-gray-500 text-sm">
+    © 2025 MyDemoApp — Built with 💜 using TailwindCSS
+  </footer>
+
+  <script>
+    // Simulated user authentication check
+    const user = localStorage.getItem("user"); // e.g., email from login
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const profileLink = document.getElementById("profile-link");
+
+    if (user) {
+      // User is logged in
+      loginBtn.classList.add("hidden");
+      logoutBtn.classList.remove("hidden");
+      profileLink.classList.remove("hidden");
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("user");
+      alert("You have been logged out!");
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>

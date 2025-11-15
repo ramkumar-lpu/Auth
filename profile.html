@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col items-center justify-center px-6 py-10">
+
+  <div class="w-full max-w-lg bg-white shadow-xl rounded-2xl border border-indigo-100 p-8 text-center">
+    <!-- Profile Picture -->
+    <img
+      id="user-photo"
+      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+      alt="User Avatar"
+      class="w-28 h-28 rounded-full mx-auto border-4 border-indigo-200 shadow-md mb-4"
+    />
+
+    <!-- User Info -->
+    <h2 id="user-name" class="text-2xl font-bold text-indigo-700">John Doe</h2>
+    <p id="user-email" class="text-gray-600 mb-6">john.doe@example.com</p>
+
+    <!-- Bio or About -->
+    <p class="text-gray-700 leading-relaxed mb-6">
+      👋 Hi there! I'm a passionate web developer who loves creating beautiful and functional web applications.
+      I enjoy learning new technologies and exploring creative solutions.
+    </p>
+
+    <!-- User Stats -->
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      <div class="bg-indigo-50 rounded-lg p-4">
+        <h4 class="text-lg font-semibold text-indigo-700">24</h4>
+        <p class="text-gray-600 text-sm">Projects</p>
+      </div>
+      <div class="bg-indigo-50 rounded-lg p-4">
+        <h4 class="text-lg font-semibold text-indigo-700">56</h4>
+        <p class="text-gray-600 text-sm">Followers</p>
+      </div>
+      <div class="bg-indigo-50 rounded-lg p-4">
+        <h4 class="text-lg font-semibold text-indigo-700">89%</h4>
+        <p class="text-gray-600 text-sm">Profile</p>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-col gap-3">
+      <button
+        onclick="window.location.href='edit-profile.html';"
+        class="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md"
+      >
+        Edit Profile
+      </button>
+
+      <button
+        onclick="window.location.href='http://localhost:3000/logout';"
+        class="w-full py-2 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition duration-300"
+      >
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Optional Footer -->
+  <footer class="mt-10 text-sm text-gray-500 text-center">
+    © 2025 Demo App — Built with 💜 using TailwindCSS
+  </footer>
+
+  <!-- ...existing code... -->
+  <script>
+    async function loadProfile() {
+      try {
+        const res = await fetch('/profile', { credentials: 'same-origin' });
+        if (res.status === 401) {
+          // not logged in -> go to login
+          window.location.href = '/login.html';
+          return;
+        }
+        const user = await res.json();
+
+        // If backend returned an empty object, show a friendly 'no data' message
+        const empty = !user || (Object.keys(user).length === 0);
+        if (empty) {
+          document.getElementById("user-name").textContent = 'No data available';
+          document.getElementById("user-email").textContent = '';
+          document.getElementById("user-photo").src = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+          return;
+        }
+
+        document.getElementById("user-name").textContent = user.displayName || user.name || 'Unnamed';
+        document.getElementById("user-email").textContent = user.email || (user.emails && user.emails[0] && user.emails[0].value) || '';
+        document.getElementById("user-photo").src = (user.photos && user.photos[0] && user.photos[0].value) || document.getElementById("user-photo").src;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // call on load
+    loadProfile();
+  </script>
+<!-- ...existing code... -->
+  <!-- <script>
+    // Example: Replace with real user data from backend or localStorage
+    const user = {
+      name: "John Doe",
+      email: "john.doe@example.com",
+      photo: "https://i.pravatar.cc/150?img=3",
+    };
+
+    document.getElementById("user-name").textContent = user.name;
+    document.getElementById("user-email").textContent = user.email;
+    document.getElementById("user-photo").src = user.photo;
+  </script> -->
+</body>
+</html>

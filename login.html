@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Signup</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center px-6">
+
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-indigo-100 p-8">
+    <!-- Page Title -->
+    <h2 id="form-title" class="text-3xl font-bold text-center text-indigo-700 mb-6">
+      Welcome Back 👋
+    </h2>
+    <p id="form-subtitle" class="text-gray-600 text-center mb-8">
+      Sign in to your account to continue
+    </p>
+
+    <!-- Login Form -->
+    <form id="login-form" action="/auth/login" method="post" class="space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none transition"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input
+          name="password"
+          type="password"
+          placeholder="••••••••"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none transition"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md"
+      >
+        Sign In
+      </button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signup-form" action="/auth/signup" method="post" class="space-y-5 hidden">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <input
+          name="fullname"
+          type="text"
+          placeholder="John Doe"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none transition"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none transition"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input
+          name="password"
+          type="password"
+          placeholder="Create a password"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none transition"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md"
+      >
+        Sign Up
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center my-6">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-3 text-gray-500 text-sm">or</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
+    <!-- Google Login Button -->
+    <button
+      onclick="window.location.href='/auth/google';"
+      class="w-full flex items-center justify-center gap-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-300 shadow-sm"
+    >
+      <img
+        src="https://developers.google.com/identity/images/g-logo.png"
+        alt="Google logo"
+        class="w-5 h-5"
+      />
+      <span class="text-gray-700 font-medium">Continue with Google</span>
+    </button>
+
+    <!-- Toggle Between Login & Signup -->
+    <p class="text-center text-sm text-gray-500 mt-6">
+      <span id="toggle-text">
+        Don’t have an account?
+        <a href="#" id="toggle-link" class="text-indigo-600 hover:text-indigo-800 font-medium">Sign up</a>
+      </span>
+    </p>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const toggleLink = document.getElementById("toggle-link");
+    const toggleText = document.getElementById("toggle-text");
+    const formTitle = document.getElementById("form-title");
+    const formSubtitle = document.getElementById("form-subtitle");
+
+    toggleLink.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (loginForm.classList.contains("hidden")) {
+        // Show login
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        formTitle.textContent = "Welcome Back 👋";
+        formSubtitle.textContent = "Sign in to your account to continue";
+        toggleText.innerHTML = `Don’t have an account?
+          <a href="#" id="toggle-link" class="text-indigo-600 hover:text-indigo-800 font-medium">Sign up</a>`;
+      } else {
+        // Show signup
+        signupForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+        formTitle.textContent = "Create Account 📝";
+        formSubtitle.textContent = "Join us and get started today";
+        toggleText.innerHTML = `Already have an account?
+          <a href="#" id="toggle-link" class="text-indigo-600 hover:text-indigo-800 font-medium">Sign in</a>`;
+      }
+
+      // Rebind event listener for dynamically updated link
+      document.getElementById("toggle-link").addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleLink.click();
+      });
+    });
+  </script>
+</body>
+</html>
